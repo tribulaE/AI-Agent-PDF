@@ -13,6 +13,9 @@ venv/
 *.pyc
 .DS_Store
 .env
+uv.lock
+pyproject.toml
+
 
 
 
