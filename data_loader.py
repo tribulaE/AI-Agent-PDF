@@ -1,3 +1,5 @@
+from http.client import responses
+
 from openai import OpenAI
 from llama_index.readers.file import PDFReader
 from llama_index.core.node_parser import SentenceSplitter
@@ -20,8 +22,17 @@ def load_and_chunk_pdf(path: str):
     return chunks
 
 def embed_texts(texts: list[str]) -> list[list[float]]:
-    response = client.embeddings.create(
-        model=EMBED_MODEL,
-        input=texts,
-    )
-    return [item.embedding for item in response.data]
+
+    texts = [t.strip() for t in texts if t and t.strip()]
+    if not texts:
+        return []
+
+    try:
+        response = client.embeddings.create(
+            model=EMBED_MODEL,
+            input=texts,
+        )
+        return [item.embedding for item in response.data]
+
+    except Exception as e:
+        raise RuntimeError(f"Embedding failed: {e}") from e

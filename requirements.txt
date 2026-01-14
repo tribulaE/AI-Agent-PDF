@@ -1,0 +1,10 @@
+fastapi
+requests
+inngest
+streamlit
+pydantic
+python-dotenv
+llama-index-core
+openai
+qdrant-client
+qdrant_client

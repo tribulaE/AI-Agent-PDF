@@ -40,7 +40,7 @@ async def send_rag_ingest_event(pdf_path: Path) -> None:
     )
 
 
-st.title("Upload a PDF to Ingest")
+st.title("Drag PDF Here")
 uploaded = st.file_uploader("Choose a PDF", type=["pdf"], accept_multiple_files=False)
 
 if uploaded is not None:
@@ -54,7 +54,7 @@ if uploaded is not None:
     st.caption("You can upload another PDF if you like.")
 
 st.divider()
-st.title("Ask a question about your PDFs")
+st.title("What are you're questions?")
 
 
 async def send_rag_query_event(question: str, top_k: int) -> None:
@@ -103,13 +103,15 @@ def wait_for_run_output(event_id: str, timeout_s: float = 120.0, poll_interval_s
         time.sleep(poll_interval_s)
 
 
+
+# Creates form
 with st.form("rag_query_form"):
     question = st.text_input("Your question")
     top_k = st.number_input("How many chunks to retrieve", min_value=1, max_value=20, value=5, step=1)
-    submitted = st.form_submit_button("Ask")
+    submitted = st.form_submit_button("Submit")
 
     if submitted and question.strip():
-        with st.spinner("Sending event and generating answer..."):
+        with st.spinner("Generating answer..."):
             # Fire-and-forget event to Inngest for observability/workflow
             event_id = asyncio.run(send_rag_query_event(question.strip(), int(top_k)))
             # Poll the local Inngest API for the run's output
