@@ -1,14 +1,25 @@
 ## RAG AI AGENT
 
+Streamlit app that lets you upload a PDF, indexes it into a Qdrant vector database using OpenAI, then answers questions RAG
 
-## Summary
-Reading a pdf has never been easy ! With this agent you can upload any pdf into the bar and ask the llm a relevant question on the pdf with a pretty quick response
+## Live Demo
+https://tribulae-ai-agent-pdf-streamlit-app-s6hqro.streamlit.app/
 
-## Dependencies
-- streamlit
-- inngest
-- docker
+
+## How it works
+- Upload a pdf
+- Splits text into chunks
+- Creates embeddings from OpenAI
+- Stores vectors + metadata in Qdrant
+- Retrieves top-k relevant chunks for a user question
+- Generates an answer and shows sources
+
+## Stack
+- Streamlit
+- Inngest
+- Docker
 - Qdrant
+
 
 
 
